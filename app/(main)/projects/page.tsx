@@ -37,5 +37,3 @@ export default function ProjectsPage() {
     </Container>
   )
 }
-
-export const revalidate = 3600

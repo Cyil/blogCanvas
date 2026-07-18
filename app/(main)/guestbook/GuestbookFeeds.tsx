@@ -6,23 +6,61 @@ import dayjs from 'dayjs'
 import relativeTime from 'dayjs/plugin/relativeTime'
 import Image from 'next/image'
 import React from 'react'
-import { useQuery } from 'react-query'
-import { useSnapshot } from 'valtio'
 
 import { CommentMarkdown } from '~/components/CommentMarkdown'
-import { type GuestbookDto } from '~/db/dto/guestbook.dto'
 import { parseDisplayName } from '~/lib/string'
 
-import { guestbookState, setMessages } from './guestbook.state'
-
 dayjs.extend(relativeTime)
+
+interface GuestbookMessage {
+  id: string
+  message: string
+  createdAt: string
+  userInfo: {
+    imageUrl?: string
+    firstName?: string
+    lastName?: string
+    fullName?: string
+    email?: string
+  }
+}
+
+const staticMessages: GuestbookMessage[] = [
+  {
+    id: '1',
+    message: '很棒的博客！非常喜欢你的设计和内容，期待更多更新~',
+    createdAt: new Date(Date.now() - 3600000).toISOString(),
+    userInfo: {
+      imageUrl: '/avatars/avatar_1.png',
+      firstName: '小明',
+    },
+  },
+  {
+    id: '2',
+    message: '从你的文章中收获了很多前端知识，感谢分享！\n\n特别是 TypeScript 那篇，让我对类型系统有了更深的理解。',
+    createdAt: new Date(Date.now() - 86400000).toISOString(),
+    userInfo: {
+      imageUrl: '/avatars/avatar_2.png',
+      firstName: '小红',
+    },
+  },
+  {
+    id: '3',
+    message: 'UI 设计真的太好看了，请问是用什么设计工具做的呢？',
+    createdAt: new Date(Date.now() - 172800000).toISOString(),
+    userInfo: {
+      imageUrl: '/avatars/avatar_3.png',
+      firstName: '开发者小张',
+    },
+  },
+]
 
 function Message({
   message,
   idx,
   length,
 }: {
-  message: GuestbookDto
+  message: GuestbookMessage
   idx: number
   length: number
 }) {
@@ -65,35 +103,18 @@ function Message({
 }
 const MessageBlock = React.memo(Message)
 
-export function GuestbookFeeds(props: { messages?: GuestbookDto[] }) {
-  const { data: feed } = useQuery(
-    ['guestbook'],
-    async () => {
-      const res = await fetch('/api/guestbook')
-      const data = await res.json()
-      return data as GuestbookDto[]
-    },
-    {
-      refetchInterval: 30000,
-      initialData: props.messages ?? [],
-    }
-  )
-  const { messages } = useSnapshot(guestbookState)
-  React.useEffect(() => {
-    setMessages(feed ?? [])
-  }, [feed])
-
+export function GuestbookFeeds() {
   return (
     <div className="relative mt-12">
       <div className="absolute inset-0 flex items-center" aria-hidden="true" />
 
       <ul role="list" className="-mb-8 px-1 md:px-4">
-        {messages.map((message, idx) => (
+        {staticMessages.map((message, idx) => (
           <MessageBlock
             key={message.id}
             message={message}
             idx={idx}
-            length={messages.length}
+            length={staticMessages.length}
           />
         ))}
       </ul>

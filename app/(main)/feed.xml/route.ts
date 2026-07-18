@@ -1,11 +1,9 @@
 import RSS from 'rss'
 
+import { getLatestPosts } from '~/data'
 import { seo } from '~/lib/seo'
-import { getLatestBlogPosts } from '~/sanity/queries'
 
-export const revalidate = 60 * 60 // 1 hour
-
-export async function GET() {
+export function GET() {
   const feed = new RSS({
     title: seo.title,
     description: seo.description,
@@ -16,10 +14,7 @@ export async function GET() {
     generator: 'PHP 9.0',
   })
 
-  const data = await getLatestBlogPosts({ limit: 999 })
-  if (!data) {
-    return new Response('Not found', { status: 404 })
-  }
+  const data = getLatestPosts(999)
 
   data.forEach((post) => {
     feed.item({

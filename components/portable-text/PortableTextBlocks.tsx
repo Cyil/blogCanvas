@@ -2,9 +2,6 @@
 import { type PortableTextComponentProps } from '@portabletext/react'
 import React from 'react'
 
-import { ClientOnly } from '~/components/ClientOnly'
-import { Commentable } from '~/components/Commentable'
-
 export function PortableTextBlocksNormal({
   value,
   children,
@@ -21,11 +18,6 @@ export function PortableTextBlocksNormal({
       data-blockid={isEmpty ? undefined : value._key}
       className="group relative pr-3 md:pr-0"
     >
-      {!isEmpty && (
-        <ClientOnly>
-          <Commentable blockId={value._key} />
-        </ClientOnly>
-      )}
       {children}
     </p>
   )
@@ -40,9 +32,6 @@ export function PortableTextBlocksH1({
       data-blockid={value._key}
       className="group relative pr-3 after:pointer-events-none after:inline after:select-none after:opacity-0 after:transition-opacity after:will-change-[opacity] after:content-['_#'] hover:after:opacity-10 md:pr-0"
     >
-      <ClientOnly>
-        <Commentable blockId={value._key} />
-      </ClientOnly>
       {children}
     </h1>
   )
@@ -59,9 +48,6 @@ export function PortableTextBlocksH2({
       className="group relative pr-3 after:pointer-events-none after:inline after:select-none after:opacity-0 after:transition-opacity after:will-change-[opacity] after:content-['_#'] hover:after:opacity-100 md:pr-0"
     >
       <a href={`#${value._key as string}`} className="absolute inset-0" />
-      <ClientOnly>
-        <Commentable blockId={value._key} />
-      </ClientOnly>
       {children}
     </h2>
   )
@@ -78,9 +64,6 @@ export function PortableTextBlocksH3({
       className="group relative pr-3 after:pointer-events-none after:inline after:select-none after:opacity-0 after:transition-opacity after:will-change-[opacity] after:content-['_#'] hover:after:opacity-10 md:pr-0"
     >
       <a href={`#${value._key as string}`} className="absolute inset-0" />
-      <ClientOnly>
-        <Commentable blockId={value._key} />
-      </ClientOnly>
       {children}
     </h3>
   )
@@ -97,9 +80,6 @@ export function PortableTextBlocksH4({
       className="group relative pr-3 after:pointer-events-none after:inline after:select-none after:opacity-0 after:transition-opacity after:will-change-[opacity] after:content-['_#'] hover:after:opacity-10 md:pr-0"
     >
       <a href={`#${value._key as string}`} className="absolute inset-0" />
-      <ClientOnly>
-        <Commentable blockId={value._key} />
-      </ClientOnly>
       {children}
     </h4>
   )
@@ -114,9 +94,6 @@ export function PortableTextBlocksBlockquote({
       data-blockid={value._key}
       className="group relative pr-3 md:pr-0"
     >
-      <ClientOnly>
-        <Commentable blockId={value._key} />
-      </ClientOnly>
       {children}
     </blockquote>
   )
@@ -128,9 +105,6 @@ export function PortableTextBlocksListItem({
 }: PortableTextComponentProps<any>) {
   return (
     <li data-blockid={value._key} className="group relative pr-3 md:pr-0">
-      <ClientOnly>
-        <Commentable className="mr-5" blockId={value._key} />
-      </ClientOnly>
       {children}
     </li>
   )

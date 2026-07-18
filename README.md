@@ -1,13 +1,6 @@
-## Chenyme | 博客
+## Cyil | 博客
 
-Chenyme 的个人博客网站 [blog.chenyme.top](https://blog.chenyme.top/) 的源码。二开改自：[Cali](https://github.com/CaliCastle/cali.so)
-
-### 新增支持
-
-- LaTex
-- Table
-- 视频嵌入
-- 图片直链
+Cyil 的个人博客网站。重构自[chenyme/MyBlog](https://github.com/chenyme/MyBlog)
 
 ### 技术栈
 

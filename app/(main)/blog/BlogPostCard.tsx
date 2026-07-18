@@ -8,8 +8,8 @@ import {
   HourglassIcon,
   ScriptIcon,
 } from '~/assets'
+import { type Post } from '~/data'
 import { prettifyNumber } from '~/lib/math'
-import { type Post } from '~/sanity/schemas/post'
 
 export function BlogPostCard({ post, views }: { post: Post; views: number }) {
   const { title, slug, mainImage, publishedAt, categories, readingTime } = post

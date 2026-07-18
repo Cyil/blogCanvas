@@ -11,8 +11,7 @@ import React from 'react'
 
 import { ExternalLinkIcon } from '~/assets'
 import { Card } from '~/components/ui/Card'
-import { urlForImage } from '~/sanity/lib/image'
-import { type Project } from '~/sanity/schemas/project'
+import { type Project } from '~/data'
 
 export function ProjectCard({ project }: { project: Project }) {
   const { _id, url, icon, name, description } = project
@@ -42,7 +41,7 @@ export function ProjectCard({ project }: { project: Project }) {
     >
       <div className="relative z-10 flex h-12 w-12 items-center justify-center rounded-full bg-white shadow-md shadow-zinc-800/5 ring-1 ring-zinc-900/5 dark:border dark:border-zinc-700/50 dark:bg-zinc-800 dark:ring-0">
         <Image
-          src={urlForImage(icon)?.size(100, 100).auto('format').url()}
+          src={icon.asset.url}
           alt=""
           width={36}
           height={36}
@@ -67,22 +66,22 @@ export function ProjectCard({ project }: { project: Project }) {
             className="pointer-events-none absolute -inset-x-4 -inset-y-6 z-30 select-none px-4 py-6 sm:-inset-x-6 sm:rounded-2xl sm:px-6"
             initial={{
               opacity: 0,
-              backgroundColor: "rgba(173, 216, 230, 0.8)", // 浅蓝色
-              boxShadow: "0px 0px 0px rgba(0, 0, 0, 0)", // 无阴影
+              backgroundColor: "rgba(173, 216, 230, 0.8)",
+              boxShadow: "0px 0px 0px rgba(0, 0, 0, 0)",
             }}
             animate={{
               opacity: isHovering ? 0.8 : 0,
               backgroundColor: isHovering
-                ? "rgba(255, 255, 224, 0.2)" // 浅黄色
-                : "rgba(173, 216, 230, 0.8)", // 浅蓝色
+                ? "rgba(255, 255, 224, 0.2)"
+                : "rgba(173, 216, 230, 0.8)",
               boxShadow: isHovering
-                ? "0px 1px 1px rgba(0, 0, 0, 0.15)" // 添加阴影
-                : "0px 0px 0px rgba(0, 0, 0, 0)", // 无阴影
+                ? "0px 1px 1px rgba(0, 0, 0, 0.15)"
+                : "0px 0px 0px rgba(0, 0, 0, 0)",
             }}
             exit={{
               opacity: 0,
-              backgroundColor: "rgba(173, 216, 230, 0.8)", // 浅蓝色
-              boxShadow: "0px 0px 0px rgba(0, 0, 0, 0)", // 无阴影
+              backgroundColor: "rgba(173, 216, 230, 0.8)",
+              boxShadow: "0px 0px 0px rgba(0, 0, 0, 0)",
             }}
             transition={{ duration: 0.5 }}
             style={{

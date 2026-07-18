@@ -6,7 +6,6 @@ import Image from 'next/image'
 import React from 'react'
 import Balancer from 'react-wrap-balancer'
 
-import { BlogPostStateLoader } from '~/app/(main)/blog/BlogPostStateLoader'
 import { BlogReactions } from '~/app/(main)/blog/BlogReactions'
 import {
   CalendarIcon,
@@ -16,13 +15,12 @@ import {
   ScriptIcon,
   UTurnLeftIcon,
 } from '~/assets'
-import { ClientOnly } from '~/components/ClientOnly'
 import { PostPortableText } from '~/components/PostPortableText'
 import { Prose } from '~/components/Prose'
 import { Button } from '~/components/ui/Button'
 import { Container } from '~/components/ui/Container'
+import { type PostDetail } from '~/data'
 import { prettifyNumber } from '~/lib/math'
-import { type PostDetail } from '~/sanity/schemas/post'
 
 import { BlogPostCard } from './BlogPostCard'
 import { BlogPostTableOfContents } from './BlogPostTableOfContents'
@@ -204,10 +202,6 @@ export function BlogPostPage({
           </div>
         </section>
       ) : null}
-
-      <ClientOnly>
-        <BlogPostStateLoader post={post} />
-      </ClientOnly>
     </Container>
   )
 }

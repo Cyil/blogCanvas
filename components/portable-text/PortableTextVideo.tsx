@@ -2,13 +2,9 @@
 
 import { type PortableTextComponentProps } from '@portabletext/react'
 import * as Dialog from '@radix-ui/react-dialog'
-import { Card } from '@sanity/ui'
 import { clsxm } from '@zolplay/utils'
 import { AnimatePresence, motion } from 'framer-motion'
 import React from 'react'
-
-import { ClientOnly } from '~/components/ClientOnly'
-import { Commentable } from '~/components/Commentable'
 
 export function PortableTextVideo({
   value,
@@ -26,15 +22,11 @@ export function PortableTextVideo({
   )
 
   if (!value.url) {
-    return <Card padding={4}>Missing Video URL</Card>
+    return <div className="p-4">Missing Video URL</div>
   }
 
   return (
     <div data-blockid={value._key} className="group relative pr-3 md:pr-0">
-      <ClientOnly>
-        <Commentable className="z-30" blockId={value._key} />
-      </ClientOnly>
-
       <Dialog.Root open={isZoomed} onOpenChange={setIsZoomed}>
         <AnimatePresence>
           {!isZoomed && (
@@ -80,7 +72,6 @@ export function PortableTextVideo({
           {isZoomed && (
             <Dialog.Portal forceMount>
               <Dialog.Close className="fixed inset-0 z-50 flex h-screen w-screen cursor-zoom-out items-center justify-center">
-                {/* Overlay */}
                 <Dialog.Overlay asChild>
                   <motion.div
                     className="absolute inset-0 bg-black/50"

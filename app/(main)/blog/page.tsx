@@ -21,7 +21,6 @@ export const metadata = {
   },
 }
 
-// TODO: add pagination or infinite scroll
 export default function BlogPage() {
   return (
     <Container className="mt-16 sm:mt-24">
@@ -42,5 +41,3 @@ export default function BlogPage() {
     </Container>
   )
 }
-
-export const revalidate = 60

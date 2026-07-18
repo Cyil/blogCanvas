@@ -11,9 +11,8 @@ import Image from 'next/image'
 import React from 'react'
 
 import { prettifyNumber } from '~/lib/math'
-import { type Post } from '~/sanity/schemas/post'
 
-function moodToReactions(mood: Post['mood']) {
+function moodToReactions(mood: string) {
   switch (mood) {
     case 'happy':
       return ['claps', 'tada', 'confetti', 'fire']
@@ -28,7 +27,11 @@ export function BlogReactions({
   _id,
   mood,
   reactions,
-}: Pick<Post, '_id' | 'mood'> & { reactions?: number[] }) {
+}: {
+  _id: string
+  mood: string
+  reactions?: number[]
+}) {
   const mouseY = useMotionValue(Infinity)
   const onMouseMove = React.useCallback(
     (e: React.MouseEvent) => {
@@ -40,21 +43,15 @@ export function BlogReactions({
     reactions ?? [0, 0, 0, 0]
   )
   const onClick = React.useCallback(
-    async (index: number) => {
-      // Optimistic update
+    (index: number) => {
+      // Optimistic update — client-side only in Stage 1
       setCachedReactions((prev) => {
         const next = [...prev]
         next[index]++
         return next
       })
-
-      const res = await fetch(`/api/reactions?id=${_id}&index=${index}`, {
-        method: 'PATCH',
-      })
-      const { data } = (await res.json()) as { data: number[] }
-      setCachedReactions(data)
     },
-    [_id]
+    []
   )
 
   return (

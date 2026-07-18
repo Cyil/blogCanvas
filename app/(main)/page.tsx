@@ -7,10 +7,10 @@ import { Photos } from '~/app/(main)/Photos'
 import { Resume } from '~/app/(main)/Resume'
 import { PencilSwooshIcon } from '~/assets'
 import { Container } from '~/components/ui/Container'
-import { getSettings } from '~/sanity/queries'
+import { getSettings } from '~/data'
 
-export default async function BlogHomePage() {
-  const settings = await getSettings()
+export default function BlogHomePage() {
+  const settings = getSettings()
 
   return (
     <>
@@ -38,5 +38,3 @@ export default async function BlogHomePage() {
     </>
   )
 }
-
-export const revalidate = 60
